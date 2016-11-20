@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="myApp">
   <head>
     <title>TheNetNinja Angular Playlist</title>
     <link href="content/css/styles.css" rel="stylesheet" type="text/css" />
     <script src="app/lib/angular.min.js"></script>
+    <script src="app/app.js"></script>
   </head>
   <body>
-    <input type="text" ng-model="favMeat" placeholder="Enter your fav meat" />
-    <p>your favorite meat is {{favMeat}}</p>
+    <header ng-include="'header.html'"></header>
+    <div class="content">
+      <div ng-controller="AppController">
+        <input type="text" ng-model='search' />
+        <ul>
+          <li ng-repeat="flowmie in flowmies | orderBy: 'name' | filter: search" ng-show="flowmie.available">
+            {{flowmie.name}} - {{flowmie.money | currency}}
+          </li>
+        </ul>
+      </div>
+    </div>
   </body>
 </html>
