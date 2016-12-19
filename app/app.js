@@ -3,11 +3,11 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngAnimate']);
 myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider
     .when('/home', {
-      templateUrl: 'views/home.html',
+      templateUrl: '/views/home.html',
       controller: 'AppController'
     })
     .when('/directory', {
-      templateUrl: 'views/directory.html',
+      templateUrl: '/views/directory.html',
       controller: 'AppController'
     })
     .otherwise({
@@ -49,7 +49,9 @@ myApp.controller('AppController', ['$scope' , '$http', function ($scope, $http) 
   $scope.removeFlowmie = function (flowmie) {
     var removedFlowmie = $scope.flowmies.indexOf(flowmie);
 
-    $scope.flomies.splice(removedFlowmie, 1);
+    console.log('removeFlowmie');
+
+    $scope.flowmies.splice(removedFlowmie, 1);
   }
 
   $http.get('data/flowmies.json').then(function (response) {
