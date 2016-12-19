@@ -122,3 +122,36 @@ main{
   cursor: pointer;
   margin-left: 10px;
 }
+
+/* The starting CSS styles for the enter animation */
+main.ng-enter {
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+/* The finishing CSS styles for the enter animation */
+main.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+#flowmie-list li.ng-enter {
+  transition:0.2s linear all;
+  transform: translateY(30px);
+  opacity:0;
+}
+
+#flowmie-list li.ng-enter-active {
+  transform:translateY(0);
+  opacity:1;
+}
+
+#flowmie-list li.ng-leave {
+  transition:0.2s linear all;
+  transform: translateX(0);
+  opacity:1;
+}
+
+#flowmie-list li.ng-enter-leave {
+  transform:translateX(-100%);
+  opacity:0;
+}

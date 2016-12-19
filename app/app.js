@@ -1,14 +1,43 @@
-var myApp = angular.module('myApp', []);
+var myApp = angular.module('myApp', ['ngRoute', 'ngAnimate']);
 
-myApp.config(function () {
+myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+  $routeProvider
+    .when('/home', {
+      templateUrl: 'views/home.html',
+      controller: 'AppController'
+    })
+    .when('/directory', {
+      templateUrl: 'views/directory.html',
+      controller: 'AppController'
+    })
+    .otherwise({
+      redirectTo: '/home'
+    });
 
-});
+    $locationProvider.html5Mode(true);
+}]);
 
 myApp.run(function () {
 
 });
 
-myApp.controller('AppController', ['$scope', function ($scope) {
+myApp.directive('randomFlowmie', [function () {
+  return {
+    restrict: 'E',
+    scope: {
+      flowmies: '=',
+      title: '='
+    },
+    templateUrl: 'views/random.html',
+    transclude: true,
+    replace: true,
+    controller: function ($scope) {
+      $scope.random = Math.floor(Math.random() * 3);
+    }
+  };
+}]);
+
+myApp.controller('AppController', ['$scope' , '$http', function ($scope, $http) {
 
   $scope.addFlowmie = function (flowmie) {
     flowmie.available = true;
@@ -23,28 +52,8 @@ myApp.controller('AppController', ['$scope', function ($scope) {
     $scope.flomies.splice(removedFlowmie, 1);
   }
 
-  $scope.flowmies = [
-    {
-      name : 'Chris',
-      prop : 'Staff',
-      money : 10,
-      available : true,
-      belt : 'green'
-    },
-    {
-      name : 'Montana',
-      prop : 'Hoop',
-      money : 20,
-      available : true,
-      belt : 'red'
-    },
-    {
-      name : 'Sam',
-      prop : 'Poi',
-      money : 5,
-      available : true,
-      belt : 'blue'
-    }
-  ];
+  $http.get('data/flowmies.json').then(function (response) {
+    $scope.flowmies = response.data;
+  });
 
 }]);

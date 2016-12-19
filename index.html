@@ -4,30 +4,13 @@
     <title>TheNetNinja Angular Playlist</title>
     <link href="content/css/styles.css" rel="stylesheet" type="text/css" />
     <script src="app/lib/angular.min.js"></script>
+    <script src="app/lib/angular-route.min.js"></script>
+    <script src="app/lib/angular-animate.min.js"></script>
     <script src="app/app.js"></script>
+    <base href="/">
   </head>
   <body>
     <header ng-include="'header.html'"></header>
-    <div class="content">
-      <div ng-controller="AppController">
-        <button ng-click="order='prop'">order by prop</button>
-        <button ng-click="order='name'">order by name</button>
-        <input type="text" ng-model='search' />
-        <ul>
-          <li ng-repeat="flowmie in flowmies | orderBy: order | filter: search" ng-show="flowmie.available">
-            <h3>{{flowmie.name}} - {{flowmie.money | currency}}</h3>
-            <div class="remove" ng-click="removeFlowmie(flowmie)">[x]</div>
-            <span class="belt" style="background: {{flowmie.belt}}">{{flowmie.prop}}</span>
-          </li>
-        </ul>
-        <form ng-submit="addFlowmie(newFlowmie)">
-          <input type="text" placeholder="name" ng-model="newFlowmie.name" />
-          <input type="text" placeholder="prop" ng-model="newFlowmie.prop" />
-          <input type="text" placeholder="money" ng-model="newFlowmie.money" />
-          <input type="text" placeholder="belt" ng-model="newFlowmie.belt" />
-          <input type="submit" value="add new flowmie" />
-        </form>
-      </div>
-    </div>
+    <main ng-view></main>
   </body>
 </html>
